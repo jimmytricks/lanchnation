@@ -142,5 +142,32 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 
+$color-primary:#6F263D;
+$color-secondary:#236192;
+$color-tertiary:#A7B1B7;
+
+h1,h2,h3,h4,h5 {
+  font-family: 'Raleway';
+}
+p, th, td {
+  font-family: 'Raleway';
+}
+
+/* Table styling */
+
+table {
+  margin-bottom: 20px;
+  color: white;
+  border-spacing: 0;
+  th {
+    padding: 10px 20px;
+    background-color: $color-secondary;
+  }
+  td {
+    background-color: $color-primary;
+    padding: 10px 20px;
+  }
+}
+
 
 </style>

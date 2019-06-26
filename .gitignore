@@ -20,7 +20,8 @@ yarn-error.log*
 *.sln
 *.sw?
 
+#MISC
+mediafiles-wip*
 lnation/notes.md
-
 notes.md
 notes.md
