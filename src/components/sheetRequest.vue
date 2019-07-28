@@ -1,75 +1,92 @@
 <template>
   <main class="content">
+    <section class="table-container">
+      <table class="overall">
+        <thead>
+          <tr>
+            <th colspan="2" v-if="currentYear">{{ currentYear.yearheading[0] }}</th>
+          </tr>
+          <tr>
+            <th v-for="heading in currentYear.tableheading" v-bind:key="heading.id">{{ heading }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="persons in currentYear.names" v-bind:key="persons.id">
+            <td v-for="entry in persons" v-bind:key="entry.id">{{ entry }}</td>
+          </tr>
+        </tbody>
+      </table>
 
-    <table class="overall">
-      <thead>
-        <tr>
-          <th colspan="2" v-if="currentYear">{{ currentYear.yearheading[0] }}</th>
-        </tr>
-        <tr>
-          <th v-for="heading in currentYear.tableheading" v-bind:key="heading.id">{{ heading }}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="persons in currentYear.names" v-bind:key="persons.id">
-          <td v-for="entry in persons" v-bind:key="entry.id">{{ entry }}</td>
-        </tr>
-      </tbody>
-    </table>
+      <table class="overall">
+        <thead>
+          <tr>
+            <th colspan="2" v-if="currentYear">Current Year Awards</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="details in currentYear.details" v-bind:key="details.id">
+            <td
+              v-for="entrydetails in details"
+              v-bind:key="entrydetails.id"
+              class="season-details"
+            >{{ entrydetails }}</td>
+          </tr>
+        </tbody>
+      </table>
 
-    <table class="overall">
-      <thead>
-        <tr>
-          <th colspan="2" v-if="currentYear">Current Year Awards</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="details in currentYear.details" v-bind:key="details.id">
-          <td
-            v-for="entrydetails in details"
-            v-bind:key="entrydetails.id"
-            class="season-details"
-          >{{ entrydetails }}</td>
-        </tr>
-      </tbody>
-    </table>
+      <h2>In play bets</h2>
 
-    <h2>In play bets</h2>
+      <table class="inplay">
+        <thead>
+          <tr>
+            <th
+              v-for="heading in inplayDataToDisplay.tableheading"
+              v-bind:key="heading.id"
+            >{{ heading }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="entries in inplayDataToDisplay.details" v-bind:key="entries.id">
+            <td v-for="entry in entries" v-bind:key="entry.id">{{ entry }}</td>
+          </tr>
+        </tbody>
+      </table>
 
-    <h2>Previous Years</h2>
+      <h2>Previous Years</h2>
 
-    <table class="overall">
-      <thead>
-        <tr>
-          <th colspan="2" v-if="year2018">{{ year2018.yearheading[0] }}</th>
-        </tr>
-        <tr>
-          <th v-for="heading in year2018.tableheading" v-bind:key="heading.id">{{ heading }}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="persons in year2018.names" v-bind:key="persons.id">
-          <td v-for="entry in persons" v-bind:key="entry.id">{{ entry }}</td>
-        </tr>
-      </tbody>
-    </table>
+      <table class="overall">
+        <thead>
+          <tr>
+            <th colspan="2" v-if="year2018">{{ year2018.yearheading[0] }}</th>
+          </tr>
+          <tr>
+            <th v-for="heading in year2018.tableheading" v-bind:key="heading.id">{{ heading }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="persons in year2018.names" v-bind:key="persons.id">
+            <td v-for="entry in persons" v-bind:key="entry.id">{{ entry }}</td>
+          </tr>
+        </tbody>
+      </table>
 
-    <table class="overall">
-      <thead>
-        <tr>
-          <th colspan="2" v-if="currentYear">2018/2019 Awards</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="details in year2018.details" v-bind:key="details.id">
-          <td
-            v-for="entrydetails in details"
-            v-bind:key="entrydetails.id"
-            class="season-details"
-          >{{ entrydetails }}</td>
-        </tr>
-      </tbody>
-    </table>
+      <table class="overall">
+        <thead>
+          <tr>
+            <th colspan="2" v-if="currentYear">2018/2019 Awards</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="details in year2018.details" v-bind:key="details.id">
+            <td
+              v-for="entrydetails in details"
+              v-bind:key="entrydetails.id"
+              class="season-details"
+            >{{ entrydetails }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
   </main>
 </template>
 
@@ -96,7 +113,8 @@ export default {
       numberOfHeadings: 2,
       numberOfHeadingsAndPeople: 6,
       currentYear: "",
-      year2018: ""
+      year2018: "",
+      inplayDataToDisplay: ""
     };
   },
   created() {
@@ -113,9 +131,9 @@ export default {
       );
       let data = await response.json();
 
-      if (sheetSelection == 'currentSheetData') {
+      if (sheetSelection == "currentSheetData") {
         this.currentSheetData = data;
-      } else if (sheetSelection == 'sheetData2018') {
+      } else if (sheetSelection == "sheetData2018") {
         this.sheetData2018 = data;
       } else {
         this.inplayData = data;
@@ -134,7 +152,10 @@ export default {
       const yearCollection = tableData => {
         tableObj.yearheading = tableData[0];
         tableObj.tableheading = tableData[1];
-        tableObj.names = tableData.slice(this.numberOfHeadings, this.numberOfHeadingsAndPeople);
+        tableObj.names = tableData.slice(
+          this.numberOfHeadings,
+          this.numberOfHeadingsAndPeople
+        );
         tableObj.details = tableData.slice(this.numberOfHeadingsAndPeople);
 
         if (specificYear == "currentSheetData") {
@@ -163,6 +184,16 @@ export default {
         return 0;
       }
     },
+    createInplayTable() {
+      let tableData = this.inplayData.values;
+
+      let tableObj = {};
+      tableObj.tableheading = tableData[0];
+      tableObj.details = tableData.slice(1);
+
+      this.inplayDataToDisplay = tableObj;
+      console.log(this.inplayDataToDisplay);
+    },
     async initCurrentYear() {
       await this.fetchData(this.currentYearSelection, "currentSheetData");
       this.createResultsTable("currentSheetData");
@@ -175,6 +206,7 @@ export default {
     },
     async initInplay() {
       await this.fetchData(this.inplaySelection, "inplay");
+      this.createInplayTable();
     }
   }
 };
@@ -201,7 +233,14 @@ td {
 
 /* Table styling */
 
+.table-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 table {
+  min-width: 320px;
   margin-bottom: 20px;
   color: white;
   border-spacing: 0;
@@ -212,6 +251,16 @@ table {
   td {
     background-color: $color-primary;
     padding: 10px 20px;
+    // border-bottom: #b3809063;
+    border-bottom: 1px solid rgba(179, 128, 144, 0.65);
+  }
+}
+
+.inplay {
+  tr:last-child {
+    td {
+      background-color: rgba($color-primary, 0.9);
+    }
   }
 }
 </style>
