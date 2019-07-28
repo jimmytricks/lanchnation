@@ -1,5 +1,6 @@
 <template>
   <main class="content">
+
     <table class="overall">
       <thead>
         <tr>
@@ -86,39 +87,41 @@ export default {
       apiKey: process.env.VUE_APP_GOOGLE,
       currentYearSelection: "/values/currentapisheet!A1:B10?",
       yearSelection2018: "/values/2018apisheet!A1:B10?",
+      inplaySelection: "/values/inplay!A1:C20?",
       currentSheetData: "",
       sheetData2018: "",
-      currentYearData: "",
-      previousYearsData: "",
+      inplayData: "",
       numberOfPeople: 4,
       numberOfYears: 2,
       numberOfHeadings: 2,
       numberOfHeadingsAndPeople: 6,
       currentYear: "",
-      year2018: "",
-      yearCollections: []
+      year2018: ""
     };
   },
   created() {
     this.initCurrentYear();
     this.init2018();
+    this.initInplay();
   },
   mounted() {},
   methods: {
     // Fetch data and assign it to sheetdata var
-    async fetchData(yearSelect, specificYear) {
+    async fetchData(yearSelect, sheetSelection) {
       let response = await fetch(
         `${this.endpoint}${this.spreadsheet}${yearSelect}$key=${this.apiKey}`
       );
       let data = await response.json();
 
-      if (specificYear == "currentSheetData") {
+      if (sheetSelection == 'currentSheetData') {
         this.currentSheetData = data;
-      } else {
+      } else if (sheetSelection == 'sheetData2018') {
         this.sheetData2018 = data;
+      } else {
+        this.inplayData = data;
       }
     },
-    createTable(specificYear) {
+    createResultsTable(specificYear) {
       let tableData;
       if (specificYear == "currentSheetData") {
         tableData = this.currentSheetData.values;
@@ -127,32 +130,12 @@ export default {
       }
 
       let tableObj = {};
-      // Constructor to create year collections within container object
 
       const yearCollection = tableData => {
         tableObj.yearheading = tableData[0];
         tableObj.tableheading = tableData[1];
-        tableObj.names = [];
-        tableObj.details = [];
-
-        // Loop the names
-        // In here sort the names by total win, also add in a prop for first, second third and 4th
-        for (
-          let e = this.numberOfHeadings;
-          e < this.numberOfHeadings + this.numberOfPeople;
-          e++
-        ) {
-          tableObj.names[e - this.numberOfHeadings] = tableData[e];
-        }
-
-        // ***** need to change for loop into a substring / filter that gets the remaining values as an array
-        for (
-          let e = 0;
-          e < tableData.length - this.numberOfHeadingsAndPeople;
-          e++
-        ) {
-          tableObj.details[e] = tableData[e + this.numberOfHeadingsAndPeople];
-        }
+        tableObj.names = tableData.slice(this.numberOfHeadings, this.numberOfHeadingsAndPeople);
+        tableObj.details = tableData.slice(this.numberOfHeadingsAndPeople);
 
         if (specificYear == "currentSheetData") {
           this.currentYear = tableObj;
@@ -182,13 +165,16 @@ export default {
     },
     async initCurrentYear() {
       await this.fetchData(this.currentYearSelection, "currentSheetData");
-      this.createTable("currentSheetData");
+      this.createResultsTable("currentSheetData");
       this.sortedYearCollectionsByWinAmount("currentSheetData");
     },
     async init2018() {
       await this.fetchData(this.yearSelection2018, "sheetData2018");
-      this.createTable("sheetData2018");
+      this.createResultsTable("sheetData2018");
       this.sortedYearCollectionsByWinAmount("sheetData2018");
+    },
+    async initInplay() {
+      await this.fetchData(this.inplaySelection, "inplay");
     }
   }
 };
