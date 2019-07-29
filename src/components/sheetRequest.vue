@@ -214,22 +214,11 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
+// @import "./assets/scss/global.scss";
+
 $color-primary: #6f263d;
 $color-secondary: #236192;
 $color-tertiary: #a7b1b7;
-
-h1,
-h2,
-h3,
-h4,
-h5 {
-  font-family: "Mukta";
-}
-p,
-th,
-td {
-  font-family: "Mukta";
-}
 
 /* Table styling */
 
