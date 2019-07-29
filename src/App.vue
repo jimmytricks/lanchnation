@@ -91,6 +91,9 @@ export default {
 
 figure {
   margin: 0;
+  background-color: #2c3033;
+  color: white;
+  box-shadow: 5px 5px #88888831;
   figcaption {
     font-size: 0.9em;
     text-align: center;

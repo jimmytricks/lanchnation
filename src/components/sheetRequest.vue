@@ -229,6 +229,7 @@ table {
   margin-bottom: 20px;
   color: white;
   border-spacing: 0;
+  box-shadow: 5px 5px #88888831;
   th {
     padding: 10px 20px;
     background-color: $color-secondary;
