@@ -223,12 +223,12 @@ h2,
 h3,
 h4,
 h5 {
-  font-family: "Raleway";
+  font-family: "Mukta";
 }
 p,
 th,
 td {
-  font-family: "Raleway";
+  font-family: "Mukta";
 }
 
 /* Table styling */
@@ -247,12 +247,14 @@ table {
   th {
     padding: 10px 20px;
     background-color: $color-secondary;
+    border-bottom: 1px solid #5c88ab;
+    text-align: left; 
   }
   td {
     background-color: $color-primary;
     padding: 10px 20px;
-    // border-bottom: #b3809063;
     border-bottom: 1px solid rgba(179, 128, 144, 0.65);
+    text-align: left; 
   }
 }
 
