@@ -214,11 +214,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
-// @import "./assets/scss/global.scss";
-
-$color-primary: #6f263d;
-$color-secondary: #236192;
-$color-tertiary: #a7b1b7;
+@import "./src/assets/scss/global.scss";
 
 /* Table styling */
 

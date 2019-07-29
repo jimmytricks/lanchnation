@@ -4,8 +4,9 @@
     <img alt="Lanchnation logo" src="./assets/img/logo.png" class="logo">
       <section class="avatar-container">
         <figure>
-          <img alt="Shep" src="./assets/img/shep.jpg" class="avatar"/>
+          <img alt="Shep" src="./assets/svg/trophy.svg" class="avatar"/>
           <figcaption>Shep</figcaption>
+          <!-- <object type="image/svg+xml" data="./assets/svg/trophy.svg"></object> -->
         </figure>
         <figure>
           <img alt="Hicks" src="./assets/img/hicks2.jpg" class="avatar"/>
@@ -38,23 +39,7 @@ export default {
 </script>
 
 <style lang="scss">
-$color-primary: #6f263d;
-$color-secondary: #236192;
-$color-tertiary: #a7b1b7;
-
-h1,
-h2,
-h3,
-h4,
-h5 {
-  font-family: "Mukta";
-}
-p,
-th,
-td {
-  font-family: "Mukta";
-}
-
+@import "./src/assets/scss/global.scss";
 
 #app {
     display: flex;
@@ -91,6 +76,10 @@ td {
 
 figure {
   margin: 0;
+  figcaption {
+    font-size: 0.9em;
+    text-align: center;
+  }
 }
 
 
