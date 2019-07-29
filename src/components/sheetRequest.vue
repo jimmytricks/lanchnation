@@ -234,13 +234,13 @@ table {
     padding: 10px 20px;
     background-color: $color-secondary;
     border-bottom: 1px solid #5c88ab;
-    text-align: left; 
+    text-align: left;
   }
   td {
     background-color: $color-primary;
     padding: 10px 20px;
     border-bottom: 1px solid rgba(179, 128, 144, 0.65);
-    text-align: left; 
+    text-align: left;
   }
 }
 
