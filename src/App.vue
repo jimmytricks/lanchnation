@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <div class="page-container">
-      <h2></h2>
       <img alt="Lanchnation logo" src="./assets/img/logo.png" class="logo" />
+      <h2 class="leaderboard">Leaderboard</h2>
       <section class="avatar-container">
         <figure>
           <img alt="Shep" src="./assets/img/shep.jpg" class="avatar" />
@@ -61,7 +61,7 @@ export default {
 
 .logo {
   max-width: 300px;
-  margin: 20px 0;
+  margin: 4px 0 16px 0;
 }
 
 .avatar-container {
@@ -103,5 +103,25 @@ figure {
 
 .trophy-container {
   text-align: center;
+}
+
+h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  padding: 4px 0;
+  color: #2c3033;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  font-size: 1em;
+  background-color: #2c3033;
+  width: 320px;
+  color: white;
+  text-align: center;
+  box-shadow: 5px 5px #88888831;
+  margin-top: 20px;
+}
+
+h2.leaderboard {
+  margin-top: 0;
 }
 </style>

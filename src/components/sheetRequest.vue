@@ -1,6 +1,7 @@
 <template>
   <main class="content">
     <section class="table-container">
+      <h2>Current Season</h2>
       <table class="overall">
         <thead>
           <tr>
@@ -34,7 +35,7 @@
         </tbody>
       </table>
 
-      <h2>In play bets</h2>
+      <h2 class="inplay">In-play bets</h2>
 
       <table class="inplay">
         <thead>
@@ -214,6 +215,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
+@import '~normalize.css/normalize';
 @import "./src/assets/scss/global.scss";
 
 /* Table styling */
@@ -250,5 +252,9 @@ table {
       background-color: rgba($color-primary, 0.9);
     }
   }
+}
+
+h2.inplay {
+  width: 100%;
 }
 </style>
