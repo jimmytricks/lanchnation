@@ -98,6 +98,7 @@ figure {
   figcaption {
     font-size: 0.9em;
     text-align: center;
+    padding: 5px;
   }
 }
 
@@ -108,7 +109,7 @@ figure {
 h2 {
   margin-top: 0;
   margin-bottom: 10px;
-  padding: 4px 0;
+  padding: 8px 0;
   color: #2c3033;
   letter-spacing: 1.4px;
   text-transform: uppercase;

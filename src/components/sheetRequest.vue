@@ -215,7 +215,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
-@import '~normalize.css/normalize';
 @import "./src/assets/scss/global.scss";
 
 /* Table styling */
