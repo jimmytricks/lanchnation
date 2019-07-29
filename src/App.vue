@@ -104,6 +104,8 @@ figure {
 
 .trophy-container {
   text-align: center;
+  padding: 4px 2px;
+
 }
 
 h2 {
