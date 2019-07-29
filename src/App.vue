@@ -4,21 +4,32 @@
     <img alt="Lanchnation logo" src="./assets/img/logo.png" class="logo">
       <section class="avatar-container">
         <figure>
-          <img alt="Shep" src="./assets/svg/trophy.svg" class="avatar"/>
+          <img alt="Shep" src="./assets/img/shep.jpg" class="avatar"/>
           <figcaption>Shep</figcaption>
-          <!-- <object type="image/svg+xml" data="./assets/svg/trophy.svg"></object> -->
+            <div class="trophy-container">
+              <img alt="Shep" src="./assets/svg/trophy.svg" class="trophy"/>
+            </div>
         </figure>
         <figure>
           <img alt="Hicks" src="./assets/img/hicks2.jpg" class="avatar"/>
           <figcaption>Hicks</figcaption>
+           <div class="trophy-container">
+              <img alt="Shep" src="./assets/svg/silver.svg" class="trophy"/>
+          </div>
         </figure>
          <figure>
           <img alt="Jack" src="./assets/img/jack.jpg" class="avatar"/>
           <figcaption>Jack</figcaption>
+            <div class="trophy-container">
+              <img alt="Third Place Medal" src="./assets/svg/bronze.svg" class="trophy"/>
+            </div>
         </figure>
          <figure>
           <img alt="Cragg" src="./assets/img/cragg.jpg" class="avatar"/>
           <figcaption>Cragg</figcaption>
+            <div class="trophy-container">
+              <img alt="Shep" src="./assets/svg/hotdog.svg" class="trophy"/>
+            </div>
         </figure>
       </section>
     <sheetRequest/>
@@ -58,7 +69,7 @@ export default {
     justify-content: space-between;
     // border-bottom: 1px solid #236192;
     padding-bottom: 20px;
-  img {
+  img.avatar  {
     border-radius: 100%;
     transform: scale(1);
     width: 70px;
@@ -66,6 +77,10 @@ export default {
       transform: scale(1.1);
 	    transition: .2s ease-in-out;
     }
+  }
+  img.trophy {
+    height:20px;
+    text-align: center;
   }
 }
 .page-container {
@@ -82,5 +97,7 @@ figure {
   }
 }
 
-
+.trophy-container {
+  text-align: center;
+}
 </style>
