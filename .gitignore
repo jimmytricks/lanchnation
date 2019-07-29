@@ -2,6 +2,7 @@
 node_modules
 /dist
 qs.md
+resources
 
 # local env files
 .env.local
