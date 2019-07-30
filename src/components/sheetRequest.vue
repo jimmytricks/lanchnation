@@ -69,7 +69,10 @@
         </thead>
         <tbody>
           <tr v-for="(persons, index) in year2018.names" v-bind:key="persons.id">
-            <td>{{ index + 1 }}.</td>
+            <td v-if="index == 0"><img alt="First Place" src="../assets/svg/trophy.svg" class="trophy" /></td>
+            <td v-else-if="index == 1"><img alt="Second Place" src="../assets/svg/silver.svg" class="trophy" /></td>
+            <td v-else-if="index == 2"><img alt="Third Place" src="../assets/svg/bronze.svg" class="trophy" /></td>
+            <td v-else-if="index == 3"><img alt="Last Place" src="../assets/svg/hotdog.svg" class="trophy" /></td>
             <td v-for="entry in persons" v-bind:key="entry.id">{{ entry }}</td>
           </tr>
         </tbody>
@@ -259,6 +262,10 @@ table {
 
 h2.inplay {
   width: 100%;
+}
+
+.trophy {
+  height: 20px;
 }
 
 // Media queries
