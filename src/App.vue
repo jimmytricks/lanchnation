@@ -127,4 +127,14 @@ h2 {
 h2.leaderboard {
   margin-top: 0;
 }
+
+// Media queries
+
+@media (min-width: 320px) {
+
+}
+
+@media (min-width: 640px) {
+
+}
 </style>

@@ -5,14 +5,16 @@
       <table class="overall">
         <thead>
           <tr>
-            <th colspan="2" v-if="currentYear">{{ currentYear.yearheading[0] }}</th>
+            <th colspan="3" v-if="currentYear">{{ currentYear.yearheading[0] }}</th>
           </tr>
           <tr>
+            <th>Pos.</th>
             <th v-for="heading in currentYear.tableheading" v-bind:key="heading.id">{{ heading }}</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="persons in currentYear.names" v-bind:key="persons.id">
+          <tr v-for="(persons, index) in currentYear.names" v-bind:key="persons.id">
+            <td>{{ index + 1 }}.</td>
             <td v-for="entry in persons" v-bind:key="entry.id">{{ entry }}</td>
           </tr>
         </tbody>
@@ -58,14 +60,16 @@
       <table class="overall">
         <thead>
           <tr>
-            <th colspan="2" v-if="year2018">{{ year2018.yearheading[0] }}</th>
+            <th colspan="3" v-if="year2018">{{ year2018.yearheading[0] }}</th>
           </tr>
           <tr>
+            <th>Pos.</th>
             <th v-for="heading in year2018.tableheading" v-bind:key="heading.id">{{ heading }}</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="persons in year2018.names" v-bind:key="persons.id">
+          <tr v-for="(persons, index) in year2018.names" v-bind:key="persons.id">
+            <td>{{ index + 1 }}.</td>
             <td v-for="entry in persons" v-bind:key="entry.id">{{ entry }}</td>
           </tr>
         </tbody>
