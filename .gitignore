@@ -3,6 +3,7 @@ node_modules
 /dist
 qs.md
 resources
+bp.md
 
 # local env files
 .env.local

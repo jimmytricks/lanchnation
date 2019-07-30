@@ -146,7 +146,7 @@ export default {
     // Fetch data from spreadsheet, parse JSON and ca
     async fetchData(yearSelect, sheetSelection) {
       const response = await fetch(
-        `${this.endpoint}${this.spreadsheet}${yearSelect}$key=${this.apiKey}`
+        `${this.endpoint}${this.spreadsheet}${yearSelect}key=${this.apiKey}`
       ).then(response => response.json());
       this.saveDataToSelection(response, sheetSelection);
     },
