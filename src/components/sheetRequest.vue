@@ -5,11 +5,17 @@
       <table>
         <thead>
           <tr>
-            <th colspan="3" v-if="currentYearDataToDisplay">{{ currentYearDataToDisplay.yearheading[0] }}</th>
+            <th
+              colspan="3"
+              v-if="currentYearDataToDisplay"
+            >{{ currentYearDataToDisplay.yearheading[0] }}</th>
           </tr>
           <tr>
             <th>Pos.</th>
-            <th v-for="heading in currentYearDataToDisplay.tableheading" v-bind:key="heading.id">{{ heading }}</th>
+            <th
+              v-for="heading in currentYearDataToDisplay.tableheading"
+              v-bind:key="heading.id"
+            >{{ heading }}</th>
           </tr>
         </thead>
         <tbody>
@@ -62,15 +68,26 @@
           </tr>
           <tr>
             <th>Pos.</th>
-            <th v-for="heading in year2018DataToDisplay.tableheading" v-bind:key="heading.id">{{ heading }}</th>
+            <th
+              v-for="heading in year2018DataToDisplay.tableheading"
+              v-bind:key="heading.id"
+            >{{ heading }}</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="(persons, index) in year2018DataToDisplay.names" v-bind:key="persons.id">
-            <td v-if="index == 0"><img alt="First Place" src="../assets/svg/trophy.svg" class="trophy" /></td>
-            <td v-else-if="index == 1"><img alt="Second Place" src="../assets/svg/silver.svg" class="trophy" /></td>
-            <td v-else-if="index == 2"><img alt="Third Place" src="../assets/svg/bronze.svg" class="trophy" /></td>
-            <td v-else-if="index == 3"><img alt="Last Place" src="../assets/svg/hotdog.svg" class="trophy" /></td>
+            <td v-if="index == 0">
+              <img alt="First Place" src="../assets/svg/trophy.svg" class="trophy" />
+            </td>
+            <td v-else-if="index == 1">
+              <img alt="Second Place" src="../assets/svg/silver.svg" class="trophy" />
+            </td>
+            <td v-else-if="index == 2">
+              <img alt="Third Place" src="../assets/svg/bronze.svg" class="trophy" />
+            </td>
+            <td v-else-if="index == 3">
+              <img alt="Last Place" src="../assets/svg/hotdog.svg" class="trophy" />
+            </td>
             <td v-for="entry in persons" v-bind:key="entry.id">{{ entry }}</td>
           </tr>
         </tbody>
@@ -99,9 +116,6 @@
 <script>
 export default {
   name: "sheetRequest",
-  props: {
-    msg: String
-  },
   data() {
     return {
       endpoint: "https://sheets.googleapis.com/v4/spreadsheets/",
@@ -129,22 +143,25 @@ export default {
   },
   mounted() {},
   methods: {
-    // Fetch data from spreadsheet 
+    // Fetch data from spreadsheet, parse JSON and ca
     async fetchData(yearSelect, sheetSelection) {
       const response = await fetch(
         `${this.endpoint}${this.spreadsheet}${yearSelect}$key=${this.apiKey}`
-      );
-      const data = await response.json();
+      ).then(response => response.json());
+      this.saveDataToSelection(response, sheetSelection);
+    },
 
-      // Check to see which selection property to save to
+    // Check to see which selection property to save to
+    saveDataToSelection(dataToSave, sheetSelection) {
       if (sheetSelection == "currentSheetData") {
-        this.currentSheetData = data;
+        this.currentSheetData = dataToSave;
       } else if (sheetSelection == "sheetData2018") {
-        this.sheetData2018 = data;
+        this.sheetData2018 = dataToSave;
       } else {
-        this.inplayData = data;
+        this.inplayData = dataToSave;
       }
     },
+
     createResultsTable(specificYear) {
       let tableData;
       if (specificYear == "currentSheetData") {
@@ -153,9 +170,9 @@ export default {
         tableData = this.sheetData2018.values;
       }
 
-      let tableObj = {};
+      const tableObj = {};
 
-      const yearCollection = tableData => {
+      const dataToTableObject = tableData => {
         tableObj.yearheading = tableData[0];
         tableObj.tableheading = tableData[1];
         tableObj.names = tableData.slice(
@@ -171,9 +188,10 @@ export default {
         }
       };
 
-      yearCollection(tableData);
+      dataToTableObject(tableData);
     },
-    sortedYearCollectionsByWinAmount(specificYear) {
+
+    sortByWinAmount(specificYear) {
       if (specificYear == "currentSheetData") {
         this.currentYearDataToDisplay.names.sort(compare);
       } else {
@@ -190,24 +208,27 @@ export default {
         return 0;
       }
     },
-    createInplayTable() {
-      let tableData = this.inplayData.values;
 
-      let tableObj = {};
+    createInplayTable() {
+      const tableData = this.inplayData.values;
+
+      const tableObj = {};
       tableObj.tableheading = tableData[0];
       tableObj.details = tableData.slice(1);
 
       this.inplayDataToDisplay = tableObj;
     },
+
+    // Init functions
     async initCurrentYear() {
       await this.fetchData(this.currentYearSelection, "currentSheetData");
       this.createResultsTable("currentSheetData");
-      this.sortedYearCollectionsByWinAmount("currentSheetData");
+      this.sortByWinAmount("currentSheetData");
     },
     async init2018() {
       await this.fetchData(this.yearSelection2018, "sheetData2018");
       this.createResultsTable("sheetData2018");
-      this.sortedYearCollectionsByWinAmount("sheetData2018");
+      this.sortByWinAmount("sheetData2018");
     },
     async initInplay() {
       await this.fetchData(this.inplaySelection, "inplay");
