@@ -210,12 +210,9 @@ export default {
     },
 
     createInplayTable() {
-      const tableData = this.inplayData.values;
-
       const tableObj = {};
-      tableObj.tableheading = tableData[0];
-      tableObj.details = tableData.slice(1);
-
+      tableObj.tableheading = this.inplayData.values[0];
+      tableObj.details = this.inplayData.values.slice(1);
       this.inplayDataToDisplay = tableObj;
     },
 
