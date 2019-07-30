@@ -191,11 +191,13 @@ export default {
       dataToTableObject(tableData);
     },
 
-    sortByWinAmount(specificYear) {
+    sortByWinAmountAndAddDollarSign(specificYear) {
       if (specificYear == "currentSheetData") {
         this.currentYearDataToDisplay.names.sort(compare);
+        this.currentYearDataToDisplay.names.forEach(addDollarSign);
       } else {
         this.year2018DataToDisplay.names.sort(compare);
+        this.year2018DataToDisplay.names.forEach(addDollarSign);
       }
 
       function compare(a, b) {
@@ -206,6 +208,10 @@ export default {
           return 1;
         }
         return 0;
+      }
+
+      function addDollarSign(data) {
+       data[1] = `$${data[1]}`
       }
     },
 
@@ -220,12 +226,12 @@ export default {
     async initCurrentYear() {
       await this.fetchData(this.currentYearSelection, "currentSheetData");
       this.createResultsTable("currentSheetData");
-      this.sortByWinAmount("currentSheetData");
+      this.sortByWinAmountAndAddDollarSign("currentSheetData");
     },
     async init2018() {
       await this.fetchData(this.yearSelection2018, "sheetData2018");
       this.createResultsTable("sheetData2018");
-      this.sortByWinAmount("sheetData2018");
+      this.sortByWinAmountAndAddDollarSign("sheetData2018");
     },
     async initInplay() {
       await this.fetchData(this.inplaySelection, "inplay");
