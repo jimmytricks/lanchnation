@@ -2,32 +2,32 @@
   <main class="content">
     <section class="table-container">
       <h2>Current Season</h2>
-      <table class="overall">
+      <table>
         <thead>
           <tr>
-            <th colspan="3" v-if="currentYear">{{ currentYear.yearheading[0] }}</th>
+            <th colspan="3" v-if="currentYearDataToDisplay">{{ currentYearDataToDisplay.yearheading[0] }}</th>
           </tr>
           <tr>
             <th>Pos.</th>
-            <th v-for="heading in currentYear.tableheading" v-bind:key="heading.id">{{ heading }}</th>
+            <th v-for="heading in currentYearDataToDisplay.tableheading" v-bind:key="heading.id">{{ heading }}</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(persons, index) in currentYear.names" v-bind:key="persons.id">
+          <tr v-for="(persons, index) in currentYearDataToDisplay.names" v-bind:key="persons.id">
             <td>{{ index + 1 }}.</td>
             <td v-for="entry in persons" v-bind:key="entry.id">{{ entry }}</td>
           </tr>
         </tbody>
       </table>
 
-      <table class="overall">
+      <table>
         <thead>
           <tr>
-            <th colspan="2" v-if="currentYear">Current Year Awards</th>
+            <th colspan="2" v-if="currentYearDataToDisplay">Current Year Awards</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="details in currentYear.details" v-bind:key="details.id">
+          <tr v-for="details in currentYearDataToDisplay.details" v-bind:key="details.id">
             <td
               v-for="entrydetails in details"
               v-bind:key="entrydetails.id"
@@ -38,7 +38,6 @@
       </table>
 
       <h2 class="inplay">In-play bets</h2>
-
       <table class="inplay">
         <thead>
           <tr>
@@ -56,19 +55,18 @@
       </table>
 
       <h2>Previous Years</h2>
-
-      <table class="overall">
+      <table>
         <thead>
           <tr>
-            <th colspan="3" v-if="year2018">{{ year2018.yearheading[0] }}</th>
+            <th colspan="3" v-if="year2018DataToDisplay">{{ year2018DataToDisplay.yearheading[0] }}</th>
           </tr>
           <tr>
             <th>Pos.</th>
-            <th v-for="heading in year2018.tableheading" v-bind:key="heading.id">{{ heading }}</th>
+            <th v-for="heading in year2018DataToDisplay.tableheading" v-bind:key="heading.id">{{ heading }}</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(persons, index) in year2018.names" v-bind:key="persons.id">
+          <tr v-for="(persons, index) in year2018DataToDisplay.names" v-bind:key="persons.id">
             <td v-if="index == 0"><img alt="First Place" src="../assets/svg/trophy.svg" class="trophy" /></td>
             <td v-else-if="index == 1"><img alt="Second Place" src="../assets/svg/silver.svg" class="trophy" /></td>
             <td v-else-if="index == 2"><img alt="Third Place" src="../assets/svg/bronze.svg" class="trophy" /></td>
@@ -78,14 +76,14 @@
         </tbody>
       </table>
 
-      <table class="overall">
+      <table>
         <thead>
           <tr>
-            <th colspan="2" v-if="currentYear">2018/2019 Awards</th>
+            <th colspan="2" v-if="currentYearDataToDisplay">2018/19 Awards</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="details in year2018.details" v-bind:key="details.id">
+          <tr v-for="details in year2018DataToDisplay.details" v-bind:key="details.id">
             <td
               v-for="entrydetails in details"
               v-bind:key="entrydetails.id"
@@ -99,7 +97,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 export default {
   name: "sheetRequest",
   props: {
@@ -120,8 +117,8 @@ export default {
       numberOfYears: 2,
       numberOfHeadings: 2,
       numberOfHeadingsAndPeople: 6,
-      currentYear: "",
-      year2018: "",
+      currentYearDataToDisplay: "",
+      year2018DataToDisplay: "",
       inplayDataToDisplay: ""
     };
   },
@@ -132,13 +129,14 @@ export default {
   },
   mounted() {},
   methods: {
-    // Fetch data and assign it to sheetdata var
+    // Fetch data from spreadsheet 
     async fetchData(yearSelect, sheetSelection) {
-      let response = await fetch(
+      const response = await fetch(
         `${this.endpoint}${this.spreadsheet}${yearSelect}$key=${this.apiKey}`
       );
-      let data = await response.json();
+      const data = await response.json();
 
+      // Check to see which selection property to save to
       if (sheetSelection == "currentSheetData") {
         this.currentSheetData = data;
       } else if (sheetSelection == "sheetData2018") {
@@ -167,9 +165,9 @@ export default {
         tableObj.details = tableData.slice(this.numberOfHeadingsAndPeople);
 
         if (specificYear == "currentSheetData") {
-          this.currentYear = tableObj;
+          this.currentYearDataToDisplay = tableObj;
         } else {
-          this.year2018 = tableObj;
+          this.year2018DataToDisplay = tableObj;
         }
       };
 
@@ -177,9 +175,9 @@ export default {
     },
     sortedYearCollectionsByWinAmount(specificYear) {
       if (specificYear == "currentSheetData") {
-        this.currentYear.names.sort(compare);
+        this.currentYearDataToDisplay.names.sort(compare);
       } else {
-        this.year2018.names.sort(compare);
+        this.year2018DataToDisplay.names.sort(compare);
       }
 
       function compare(a, b) {
@@ -200,7 +198,6 @@ export default {
       tableObj.details = tableData.slice(1);
 
       this.inplayDataToDisplay = tableObj;
-      console.log(this.inplayDataToDisplay);
     },
     async initCurrentYear() {
       await this.fetchData(this.currentYearSelection, "currentSheetData");

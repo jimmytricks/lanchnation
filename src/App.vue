@@ -5,31 +5,31 @@
       <h2 class="leaderboard">Leaderboard</h2>
       <section class="avatar-container">
         <figure>
-          <img alt="Shep" src="./assets/img/shep.jpg" class="avatar" />
+          <img alt="Avatar of Shep" src="./assets/img/shep.jpg" class="avatar" />
           <figcaption>Shep</figcaption>
           <div class="trophy-container">
-            <img alt="Shep" src="./assets/svg/trophy.svg" class="trophy" />
+            <img alt="First Place" src="./assets/svg/trophy.svg" class="trophy" />
           </div>
         </figure>
         <figure>
-          <img alt="Hicks" src="./assets/img/hicks2.jpg" class="avatar" />
+          <img alt="Avatar of Hicks" src="./assets/img/hicks2.jpg" class="avatar" />
           <figcaption>Hicks</figcaption>
           <div class="trophy-container">
-            <img alt="Shep" src="./assets/svg/silver.svg" class="trophy" />
+            <img alt="Second place" src="./assets/svg/silver.svg" class="trophy" />
           </div>
         </figure>
         <figure>
-          <img alt="Jack" src="./assets/img/jack.jpg" class="avatar" />
+          <img alt="Avatar of Jack" src="./assets/img/jack.jpg" class="avatar" />
           <figcaption>Jack</figcaption>
           <div class="trophy-container">
             <img alt="Third Place Medal" src="./assets/svg/bronze.svg" class="trophy" />
           </div>
         </figure>
         <figure>
-          <img alt="Cragg" src="./assets/img/cragg.jpg" class="avatar" />
+          <img alt="Avatar of Cragg" src="./assets/img/cragg.jpg" class="avatar" />
           <figcaption>Cragg</figcaption>
           <div class="trophy-container">
-            <img alt="Shep" src="./assets/svg/hotdog.svg" class="trophy" />
+            <img alt="Hotdog for last place" src="./assets/svg/hotdog.svg" class="trophy" />
           </div>
         </figure>
       </section>
@@ -39,7 +39,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 import sheetRequest from "./components/sheetRequest.vue";
 
 export default {
@@ -68,7 +67,6 @@ export default {
   width: 320px;
   display: flex;
   justify-content: space-between;
-  // border-bottom: 1px solid #236192;
   padding-bottom: 20px;
   img.avatar {
     border-radius: 100%;
