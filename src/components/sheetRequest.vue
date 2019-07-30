@@ -260,4 +260,12 @@ table {
 h2.inplay {
   width: 100%;
 }
+
+// Media queries
+
+@media (min-width: 640px) {
+  table {
+    min-width: 480px;
+  }
+}
 </style>

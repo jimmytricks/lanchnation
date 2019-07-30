@@ -130,11 +130,15 @@ h2.leaderboard {
 
 // Media queries
 
-@media (min-width: 320px) {
-
-}
-
 @media (min-width: 640px) {
-
+  .avatar-container, h2 {
+    width: 480px;
+  }
+  figure {
+    padding: 10px;
+  }
+  .avatar-container img.avatar {
+    width: 90px;
+  }
 }
 </style>
