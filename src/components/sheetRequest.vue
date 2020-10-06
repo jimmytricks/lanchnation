@@ -61,6 +61,56 @@
       </table>
 
       <h2>Previous Years</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th colspan="3" v-if="year2019DataToDisplay">{{ year2019DataToDisplay.yearheading[0] }}</th>
+          </tr>
+          <tr>
+            <th>Pos.</th>
+            <th
+              v-for="heading in year2019DataToDisplay.tableheading"
+              v-bind:key="heading.id"
+            >{{ heading }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(persons, index) in year2019DataToDisplay.names" v-bind:key="persons.id">
+            <td v-if="index == 0">
+              <img alt="First Place" src="../assets/svg/trophy.svg" class="trophy" />
+            </td>
+            <td v-else-if="index == 1">
+              <img alt="Second Place" src="../assets/svg/silver.svg" class="trophy" />
+            </td>
+            <td v-else-if="index == 2">
+              <img alt="Third Place" src="../assets/svg/bronze.svg" class="trophy" />
+            </td>
+            <td v-else-if="index == 3">
+              <img alt="Last Place" src="../assets/svg/hotdog.svg" class="trophy" />
+            </td>
+            <td v-for="entry in persons" v-bind:key="entry.id">{{ entry }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <table>
+        <thead>
+          <tr>
+            <th colspan="2" v-if="currentYearDataToDisplay">2019/20 Awards</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="details in year2019DataToDisplay.details" v-bind:key="details.id">
+            <td
+              v-for="entrydetails in details"
+              v-bind:key="entrydetails.id"
+              class="season-details"
+            >{{ entrydetails }}</td>
+          </tr>
+        </tbody>
+      </table>
+
       <table>
         <thead>
           <tr>
@@ -122,10 +172,12 @@ export default {
       spreadsheet: process.env.VUE_APP_SPREADSHEETID,
       apiKey: process.env.VUE_APP_GOOGLE,
       currentYearSelection: "/values/currentapisheet!A1:B10?",
+      yearSelection2019: "/values/2019apisheet!A1:B10?",
       yearSelection2018: "/values/2018apisheet!A1:B10?",
       inplaySelection: "/values/inplay!A1:C20?",
       currentSheetData: "",
       sheetData2018: "",
+      sheetData2019: "",
       inplayData: "",
       numberOfPeople: 4,
       numberOfYears: 2,
@@ -133,12 +185,14 @@ export default {
       numberOfHeadingsAndPeople: 6,
       currentYearDataToDisplay: "",
       year2018DataToDisplay: "",
+      year2019DataToDisplay: "",
       inplayDataToDisplay: ""
     };
   },
   created() {
     this.initCurrentYear();
     this.init2018();
+    this.init2019();
     this.initInplay();
   },
   mounted() {},
@@ -155,6 +209,8 @@ export default {
     saveDataToSelection(dataToSave, sheetSelection) {
       if (sheetSelection == "currentSheetData") {
         this.currentSheetData = dataToSave;
+      } else if (sheetSelection == "sheetData2019") {
+        this.sheetData2019 = dataToSave;
       } else if (sheetSelection == "sheetData2018") {
         this.sheetData2018 = dataToSave;
       } else {
@@ -166,7 +222,10 @@ export default {
       let tableData;
       if (specificYear == "currentSheetData") {
         tableData = this.currentSheetData.values;
-      } else {
+      } else if (specificYear == "sheetData2019") {
+        tableData = this.sheetData2019.values;
+      }      
+      else {
         tableData = this.sheetData2018.values;
       }
 
@@ -183,6 +242,8 @@ export default {
 
         if (specificYear == "currentSheetData") {
           this.currentYearDataToDisplay = tableObj;
+        } else if (specificYear == "sheetData2019") {
+          this.year2019DataToDisplay = tableObj;
         } else {
           this.year2018DataToDisplay = tableObj;
         }
@@ -195,6 +256,9 @@ export default {
       if (specificYear == "currentSheetData") {
         this.currentYearDataToDisplay.names.sort(compare);
         this.currentYearDataToDisplay.names.forEach(addDollarSign);
+      } else if (specificYear == "sheetData2019") {
+        this.year2019DataToDisplay.names.sort(compare);
+        this.year2019DataToDisplay.names.forEach(addDollarSign);
       } else {
         this.year2018DataToDisplay.names.sort(compare);
         this.year2018DataToDisplay.names.forEach(addDollarSign);
@@ -227,6 +291,11 @@ export default {
       await this.fetchData(this.currentYearSelection, "currentSheetData");
       this.createResultsTable("currentSheetData");
       this.sortByWinAmountAndAddDollarSign("currentSheetData");
+    },
+    async init2019() {
+      await this.fetchData(this.yearSelection2019, "sheetData2019");
+      this.createResultsTable("sheetData2019");
+      this.sortByWinAmountAndAddDollarSign("sheetData2019");
     },
     async init2018() {
       await this.fetchData(this.yearSelection2018, "sheetData2018");

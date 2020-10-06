@@ -9,12 +9,14 @@
           <figcaption>Shep</figcaption>
           <div class="trophy-container">
             <img alt="First Place" src="./assets/svg/trophy.svg" class="trophy" />
+            <img alt="First Place" src="./assets/svg/trophy.svg" class="trophy" />
           </div>
         </figure>
         <figure>
           <img alt="Avatar of Hicks" src="./assets/img/hicks2.jpg" class="avatar" />
           <figcaption>Hicks</figcaption>
           <div class="trophy-container">
+            <img alt="Second place" src="./assets/svg/silver.svg" class="trophy" />
             <img alt="Second place" src="./assets/svg/silver.svg" class="trophy" />
           </div>
         </figure>
@@ -23,12 +25,14 @@
           <figcaption>Jack</figcaption>
           <div class="trophy-container">
             <img alt="Third Place Medal" src="./assets/svg/bronze.svg" class="trophy" />
+            <img alt="Third Place Medal" src="./assets/svg/bronze.svg" class="trophy" />
           </div>
         </figure>
         <figure>
           <img alt="Avatar of Cragg" src="./assets/img/cragg.jpg" class="avatar" />
           <figcaption>Cragg</figcaption>
           <div class="trophy-container">
+            <img alt="Hotdog for last place" src="./assets/svg/hotdog.svg" class="trophy" />
             <img alt="Hotdog for last place" src="./assets/svg/hotdog.svg" class="trophy" />
           </div>
         </figure>
