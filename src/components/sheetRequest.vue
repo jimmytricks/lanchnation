@@ -174,7 +174,7 @@ export default {
       currentYearSelection: "/values/currentapisheet!A1:B10?",
       yearSelection2019: "/values/2019apisheet!A1:B10?",
       yearSelection2018: "/values/2018apisheet!A1:B10?",
-      inplaySelection: "/values/inplay!A1:C20?",
+      inplaySelection: "/values/inplay!A1:C60?",
       currentSheetData: "",
       sheetData2018: "",
       sheetData2019: "",
