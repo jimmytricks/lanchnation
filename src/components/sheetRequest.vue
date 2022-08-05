@@ -5,8 +5,8 @@
       <table>
         <thead>
           <tr>
-            <th colspan="3" v-if="currentYearDataToDisplay">
-              {{ currentYearDataToDisplay.yearheading[0] }}
+            <th colspan="3">
+              Current Year 2021/22
             </th>
           </tr>
           <tr>
