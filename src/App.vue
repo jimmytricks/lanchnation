@@ -37,7 +37,7 @@
         </figure>
         <figure>
           <img alt="Avatar of Cragg" src="./assets/img/cragg.jpg" class="avatar" />
-          <figcaption>Cragg</figcaption>
+          <figcaption>Cryan</figcaption>
           <div class="trophy-container">
             <img alt="Hotdog for last place" src="./assets/svg/hotdog.svg" class="trophy" />
             <img alt="Hotdog for last place" src="./assets/svg/hotdog.svg" class="trophy" />
