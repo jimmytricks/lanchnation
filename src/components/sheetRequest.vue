@@ -526,7 +526,7 @@ export default {
       }
 
       function addDollarSign(data) {
-        data[1] = `$${data[1]}`;
+        data[1] = `$£{data[1]}`;
       }
     },
 
