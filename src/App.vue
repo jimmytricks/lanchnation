@@ -12,7 +12,7 @@
             <img alt="First Place" src="./assets/svg/trophy.svg" class="trophy" />
             <img alt="Hotdog for last place" src="./assets/svg/hotdog.svg" class="trophy" />
             <img alt="First Place" src="./assets/svg/trophy.svg" class="trophy" />
-
+            <img alt="First Place" src="./assets/svg/trophy.svg" class="trophy" />
           </div>
         </figure>
         <figure>
@@ -23,6 +23,7 @@
             <img alt="Second place" src="./assets/svg/silver.svg" class="trophy" />
             <img alt="Third Place Medal" src="./assets/svg/bronze.svg" class="trophy" />
             <img alt="Third Place Medal" src="./assets/svg/bronze.svg" class="trophy" />
+            <img alt="Hotdog for last place" src="./assets/svg/hotdog.svg" class="trophy" />
           </div>
         </figure>
         <figure>
@@ -33,6 +34,7 @@
             <img alt="Third Place Medal" src="./assets/svg/bronze.svg" class="trophy" />
             <img alt="Second place" src="./assets/svg/silver.svg" class="trophy" />
             <img alt="Second place" src="./assets/svg/silver.svg" class="trophy" />
+            <img alt="Third Place Medal" src="./assets/svg/bronze.svg" class="trophy" />
           </div>
         </figure>
         <figure>
@@ -43,6 +45,7 @@
             <img alt="Hotdog for last place" src="./assets/svg/hotdog.svg" class="trophy" />
             <img alt="First Place" src="./assets/svg/trophy.svg" class="trophy" />
             <img alt="Hotdog for last place" src="./assets/svg/hotdog.svg" class="trophy" />
+            <img alt="Second place" src="./assets/svg/silver.svg" class="trophy" />
           </div>
         </figure>
       </section>

@@ -81,6 +81,83 @@
       <table>
         <thead>
           <tr>
+            <th colspan="3" v-if="year2022DataToDisplay">
+              {{ year2022DataToDisplay.yearheading[0] }}
+            </th>
+          </tr>
+          <tr>
+            <th>Pos.</th>
+            <th
+              v-for="heading in year2022DataToDisplay.tableheading"
+              v-bind:key="heading.id"
+            >
+              {{ heading }}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            v-for="(persons, index) in year2022DataToDisplay.names"
+            v-bind:key="persons.id"
+          >
+            <td v-if="index == 0">
+              <img
+                alt="First Place"
+                src="../assets/svg/trophy.svg"
+                class="trophy"
+              />
+            </td>
+            <td v-else-if="index == 1">
+              <img
+                alt="Second Place"
+                src="../assets/svg/silver.svg"
+                class="trophy"
+              />
+            </td>
+            <td v-else-if="index == 2">
+              <img
+                alt="Third Place"
+                src="../assets/svg/bronze.svg"
+                class="trophy"
+              />
+            </td>
+            <td v-else-if="index == 3">
+              <img
+                alt="Last Place"
+                src="../assets/svg/hotdog.svg"
+                class="trophy"
+              />
+            </td>
+            <td v-for="entry in persons" v-bind:key="entry.id">{{ entry }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <table>
+        <thead>
+          <tr>
+            <th colspan="2" v-if="currentYearDataToDisplay">2022/23 Awards</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            v-for="details in year2022DataToDisplay.details"
+            v-bind:key="details.id"
+          >
+            <td
+              v-for="entrydetails in details"
+              v-bind:key="entrydetails.id"
+              class="season-details"
+            >
+              {{ entrydetails }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <table>
+        <thead>
+          <tr>
             <th colspan="3" v-if="year2021DataToDisplay">
               {{ year2021DataToDisplay.yearheading[0] }}
             </th>
@@ -398,6 +475,7 @@ export default {
       spreadsheet: process.env.VUE_APP_SPREADSHEETID,
       apiKey: process.env.VUE_APP_GOOGLE,
       currentYearSelection: "/values/currentapisheet!A1:B10?",
+      yearSelection2022: "/values/2022apisheet!A1:B10?",
       yearSelection2021: "/values/2021apisheet!A1:B10?",
       yearSelection2020: "/values/2020apisheet!A1:B10?",
       yearSelection2019: "/values/2019apisheet!A1:B10?",
@@ -408,6 +486,7 @@ export default {
       sheetData2019: "",
       sheetData2020: "",
       sheetData2021: "",
+      sheetData2022: "",
       inplayData: "",
       numberOfPeople: 4,
       numberOfYears: 2,
@@ -418,6 +497,7 @@ export default {
       year2019DataToDisplay: "",
       year2020DataToDisplay: "",
       year2021DataToDisplay: "",
+      year2022DataToDisplay: "",
       inplayDataToDisplay: "",
     };
   },
@@ -427,6 +507,7 @@ export default {
     this.init2019();
     this.init2020();
     this.init2021();
+    this.init2022();
     this.initInplay();
   },
   mounted() {},
@@ -443,6 +524,8 @@ export default {
     saveDataToSelection(dataToSave, sheetSelection) {
       if (sheetSelection == "currentSheetData") {
         this.currentSheetData = dataToSave;
+      } else if (sheetSelection == "sheetData2022") {
+        this.sheetData2021 = dataToSave;
       } else if (sheetSelection == "sheetData2021") {
         this.sheetData2021 = dataToSave;
       } else if (sheetSelection == "sheetData2020") {
@@ -460,6 +543,8 @@ export default {
       let tableData;
       if (specificYear == "currentSheetData") {
         tableData = this.currentSheetData.values;
+      } else if (specificYear == "sheetData2022") {
+        tableData = this.sheetData2021.values;
       } else if (specificYear == "sheetData2021") {
         tableData = this.sheetData2021.values;
       } else if (specificYear == "sheetData2020") {
@@ -483,6 +568,8 @@ export default {
 
         if (specificYear == "currentSheetData") {
           this.currentYearDataToDisplay = tableObj;
+        } else if (specificYear == "sheetData2022") {
+          this.year2021DataToDisplay = tableObj;
         } else if (specificYear == "sheetData2021") {
           this.year2021DataToDisplay = tableObj;
         } else if (specificYear == "sheetData2020") {
@@ -501,6 +588,9 @@ export default {
       if (specificYear == "currentSheetData") {
         this.currentYearDataToDisplay.names.sort(compare);
         this.currentYearDataToDisplay.names.forEach(addDollarSign);
+      } else if (specificYear == "sheetData2021") {
+        this.year2021DataToDisplay.names.sort(compare);
+        this.year2021DataToDisplay.names.forEach(addDollarSign);
       } else if (specificYear == "sheetData2021") {
         this.year2021DataToDisplay.names.sort(compare);
         this.year2021DataToDisplay.names.forEach(addDollarSign);
@@ -542,6 +632,11 @@ export default {
       await this.fetchData(this.currentYearSelection, "currentSheetData");
       this.createResultsTable("currentSheetData");
       this.sortByWinAmountAndAddDollarSign("currentSheetData");
+    },
+    async init2022() {
+      await this.fetchData(this.yearSelection2022, "sheetData2022");
+      this.createResultsTable("sheetData2022");
+      this.sortByWinAmountAndAddDollarSign("sheetData2022");
     },
     async init2021() {
       await this.fetchData(this.yearSelection2021, "sheetData2021");
