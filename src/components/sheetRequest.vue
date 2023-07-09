@@ -525,7 +525,7 @@ export default {
       if (sheetSelection == "currentSheetData") {
         this.currentSheetData = dataToSave;
       } else if (sheetSelection == "sheetData2022") {
-        this.sheetData2021 = dataToSave;
+        this.sheetData2022 = dataToSave;
       } else if (sheetSelection == "sheetData2021") {
         this.sheetData2021 = dataToSave;
       } else if (sheetSelection == "sheetData2020") {
@@ -544,7 +544,7 @@ export default {
       if (specificYear == "currentSheetData") {
         tableData = this.currentSheetData.values;
       } else if (specificYear == "sheetData2022") {
-        tableData = this.sheetData2021.values;
+        tableData = this.sheetData2022.values;
       } else if (specificYear == "sheetData2021") {
         tableData = this.sheetData2021.values;
       } else if (specificYear == "sheetData2020") {
@@ -569,7 +569,7 @@ export default {
         if (specificYear == "currentSheetData") {
           this.currentYearDataToDisplay = tableObj;
         } else if (specificYear == "sheetData2022") {
-          this.year2021DataToDisplay = tableObj;
+          this.year2022DataToDisplay = tableObj;
         } else if (specificYear == "sheetData2021") {
           this.year2021DataToDisplay = tableObj;
         } else if (specificYear == "sheetData2020") {
@@ -588,9 +588,9 @@ export default {
       if (specificYear == "currentSheetData") {
         this.currentYearDataToDisplay.names.sort(compare);
         this.currentYearDataToDisplay.names.forEach(addDollarSign);
-      } else if (specificYear == "sheetData2021") {
-        this.year2021DataToDisplay.names.sort(compare);
-        this.year2021DataToDisplay.names.forEach(addDollarSign);
+      } else if (specificYear == "sheetData2022") {
+        this.year2022DataToDisplay.names.sort(compare);
+        this.year2022DataToDisplay.names.forEach(addDollarSign);
       } else if (specificYear == "sheetData2021") {
         this.year2021DataToDisplay.names.sort(compare);
         this.year2021DataToDisplay.names.forEach(addDollarSign);
