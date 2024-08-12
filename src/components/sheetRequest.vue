@@ -136,7 +136,7 @@
       <table>
         <thead>
           <tr>
-            <th colspan="2" v-if="currentYearDataToDisplay">2022/23 Awards</th>
+            <th colspan="2" v-if="currentYearDataToDisplay">2023/24 Awards</th>
           </tr>
         </thead>
         <tbody>
@@ -213,7 +213,7 @@
       <table>
         <thead>
           <tr>
-            <th colspan="2" v-if="currentYearDataToDisplay">2022/23 Awards</th>
+            <th colspan="2" v-if="currentYearDataToDisplay">2021/23 Awards</th>
           </tr>
         </thead>
         <tbody>
