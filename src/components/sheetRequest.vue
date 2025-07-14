@@ -20,6 +20,24 @@
         </tbody>
       </table>
 
+      <h2>All Time Winnings</h2>
+      <table v-if="allTimeWinnings.length">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Name</th>
+            <th>Total Winnings</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(row, idx) in allTimeWinnings" :key="row.name">
+            <td>{{ idx + 1 }}</td>
+            <td>{{ row.name }}</td>
+            <td>£{{ row.total.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) }}</td>
+          </tr>
+        </tbody>
+      </table>
+
       <h2>Previous Years</h2>
       <SeasonTable
         v-for="year in previousYears"
@@ -65,6 +83,28 @@ export default {
     previousYears() {
       // Exclude 'current' from previous years
       return this.years.filter(y => y.key !== "current");
+    },
+    allTimeWinnings() {
+      // Aggregate all previous years' winnings by name
+      const totals = {};
+      for (const year of this.previousYears) {
+        const data = this.yearData[year.key];
+        if (data && Array.isArray(data.names)) {
+          data.names.forEach(row => {
+            const name = row[0];
+            // Remove pound sign and commas, parse as float
+            const amount = parseFloat((row[1] || '').replace(/[^\d.-]/g, ''));
+            if (!isNaN(amount)) {
+              if (!totals[name]) totals[name] = 0;
+              totals[name] += amount;
+            }
+          });
+        }
+      }
+      // Convert to array and sort by total descending
+      return Object.entries(totals)
+        .map(([name, total]) => ({ name, total }))
+        .sort((a, b) => b.total - a.total);
     },
   },
   async created() {
