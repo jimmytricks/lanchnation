@@ -44,6 +44,7 @@ export default {
       apiKey: process.env.VUE_APP_GOOGLE,
       years: [
         { key: "current", label: "Current Year 2023/24", selection: "/values/currentapisheet!A1:B10?" },
+        { key: "2024", label: "2024/25", selection: "/values/2024apisheet!A1:B10?" },
         { key: "2023", label: "2023/24", selection: "/values/2023apisheet!A1:B10?" },
         { key: "2022", label: "2022/23", selection: "/values/2022apisheet!A1:B10?" },
         { key: "2021", label: "2021/22", selection: "/values/2021apisheet!A1:B10?" },
@@ -108,60 +109,3 @@ export default {
   },
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss" scoped>
-@import "./src/assets/scss/global.scss";
-
-/* Table styling */
-
-.table-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-table {
-  min-width: 320px;
-  margin-bottom: 20px;
-  color: white;
-  border-spacing: 0;
-  box-shadow: 5px 5px #88888831;
-  th {
-    padding: 10px 20px;
-    background-color: $color-secondary;
-    border-bottom: 1px solid #5c88ab;
-    text-align: left;
-  }
-  td {
-    background-color: $color-primary;
-    padding: 10px 20px;
-    border-bottom: 1px solid rgba(179, 128, 144, 0.65);
-    text-align: left;
-  }
-}
-
-.inplay {
-  tr:last-child {
-    td {
-      background-color: rgba($color-primary, 0.9);
-    }
-  }
-}
-
-h2.inplay {
-  width: 100%;
-}
-
-.trophy {
-  height: 20px;
-}
-
-// Media queries
-
-@media (min-width: 640px) {
-  table {
-    min-width: 480px;
-  }
-}
-</style>
