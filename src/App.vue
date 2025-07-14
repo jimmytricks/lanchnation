@@ -4,52 +4,11 @@
       <img alt="Lanchnation logo" src="./assets/img/logo.png" class="logo" />
       <h2 class="leaderboard">Leaderboard</h2>
       <section class="avatar-container">
-        <figure>
-          <img alt="Avatar of Shep" src="./assets/img/shep.jpg" class="avatar" />
-          <figcaption>Shep</figcaption>
+        <figure v-for="person in leaderboard" :key="person.name">
+          <img :alt="`Avatar of ${person.name}`" :src="person.avatar" class="avatar" />
+          <figcaption>{{ person.name }}</figcaption>
           <div class="trophy-container">
-            <img alt="First Place" src="./assets/svg/trophy.svg" class="trophy" />
-            <img alt="First Place" src="./assets/svg/trophy.svg" class="trophy" />
-            <img alt="Hotdog for last place" src="./assets/svg/hotdog.svg" class="trophy" />
-            <img alt="First Place" src="./assets/svg/trophy.svg" class="trophy" />
-            <img alt="First Place" src="./assets/svg/trophy.svg" class="trophy" />
-            <img alt="Third Place Medal" src="./assets/svg/bronze.svg" class="trophy" />
-          </div>
-        </figure>
-        <figure>
-          <img alt="Avatar of Hicks" src="./assets/img/hicks2.jpg" class="avatar" />
-          <figcaption>Hicks</figcaption>
-          <div class="trophy-container">
-            <img alt="Second place" src="./assets/svg/silver.svg" class="trophy" />
-            <img alt="Second place" src="./assets/svg/silver.svg" class="trophy" />
-            <img alt="Third Place Medal" src="./assets/svg/bronze.svg" class="trophy" />
-            <img alt="Third Place Medal" src="./assets/svg/bronze.svg" class="trophy" />
-            <img alt="Hotdog for last place" src="./assets/svg/hotdog.svg" class="trophy" />
-            <img alt="Hotdog for last place" src="./assets/svg/hotdog.svg" class="trophy" />
-          </div>
-        </figure>
-        <figure>
-          <img alt="Avatar of Jack" src="./assets/img/jack.jpg" class="avatar" />
-          <figcaption>Jack</figcaption>
-          <div class="trophy-container">
-            <img alt="Third Place Medal" src="./assets/svg/bronze.svg" class="trophy" />
-            <img alt="Third Place Medal" src="./assets/svg/bronze.svg" class="trophy" />
-            <img alt="Second place" src="./assets/svg/silver.svg" class="trophy" />
-            <img alt="Second place" src="./assets/svg/silver.svg" class="trophy" />
-            <img alt="Third Place Medal" src="./assets/svg/bronze.svg" class="trophy" />
-            <img alt="Second place" src="./assets/svg/silver.svg" class="trophy" />
-          </div>
-        </figure>
-        <figure>
-          <img alt="Avatar of Cragg" src="./assets/img/cragg.jpg" class="avatar" />
-          <figcaption>Cryan</figcaption>
-          <div class="trophy-container">
-            <img alt="Hotdog for last place" src="./assets/svg/hotdog.svg" class="trophy" />
-            <img alt="Hotdog for last place" src="./assets/svg/hotdog.svg" class="trophy" />
-            <img alt="First Place" src="./assets/svg/trophy.svg" class="trophy" />
-            <img alt="Hotdog for last place" src="./assets/svg/hotdog.svg" class="trophy" />
-            <img alt="Second place" src="./assets/svg/silver.svg" class="trophy" />
-            <img alt="First Place" src="./assets/svg/trophy.svg" class="trophy" />
+            <img v-for="(trophy, i) in person.trophies" :key="i" :alt="trophy.alt" :src="trophy.src" class="trophy" />
           </div>
         </figure>
       </section>
@@ -61,10 +20,55 @@
 <script>
 import sheetRequest from "./components/sheetRequest.vue";
 
+const AVATARS = {
+  Shep: require("./assets/img/shep.jpg"),
+  Hicks: require("./assets/img/hicks2.jpg"),
+  Jack: require("./assets/img/jack.jpg"),
+  Cryan: require("./assets/img/cragg.jpg")
+};
+const TROPHIES = [
+  { alt: "First Place", src: require("./assets/svg/trophy.svg") },
+  { alt: "Second Place", src: require("./assets/svg/silver.svg") },
+  { alt: "Third Place", src: require("./assets/svg/bronze.svg") },
+  { alt: "Last Place", src: require("./assets/svg/hotdog.svg") }
+];
+
 export default {
   name: "app",
   components: {
     sheetRequest
+  },
+  data() {
+    return {
+      leaderboard: [
+        { name: "Shep", avatar: AVATARS.Shep, trophies: [] },
+        { name: "Hicks", avatar: AVATARS.Hicks, trophies: [] },
+        { name: "Jack", avatar: AVATARS.Jack, trophies: [] },
+        { name: "Cryan", avatar: AVATARS.Cryan, trophies: [] }
+      ]
+    };
+  },
+  async mounted() {
+    await this.$nextTick();
+    const sheet = this.$children.find(c => c.$options.name === "sheetRequest");
+    if (!sheet) return;
+    const years = sheet.previousYears.map(y => y.key);
+    const yearData = sheet.yearData;
+    const trophyMap = { 0: TROPHIES[0], 1: TROPHIES[1], 2: TROPHIES[2], 3: TROPHIES[3] };
+    const personTrophies = { Shep: [], Hicks: [], Jack: [], Cryan: [] };
+    for (const year of years) {
+      const standings = yearData[year]?.names || [];
+      standings.forEach((row, idx) => {
+        const name = row[0];
+        if (personTrophies[name] && trophyMap[idx]) {
+          personTrophies[name].push(trophyMap[idx]);
+        }
+      });
+    }
+    // Update leaderboard
+    this.leaderboard.forEach(person => {
+      person.trophies = personTrophies[person.name];
+    });
   }
 };
 </script>
