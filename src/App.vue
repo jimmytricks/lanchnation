@@ -48,44 +48,44 @@ export default {
       ]
     };
   },
-    mounted() {
-      this.waitForSheetDataAndAssignTrophies();
-    },
-    methods: {
-      async waitForSheetDataAndAssignTrophies() {
-        let sheet = null;
-        while (!sheet) {
-          await this.$nextTick();
-          sheet = this.$children.find(c => c.$options.name === "sheetRequest");
-        }
-        let tries = 0;
-        while (tries < 50) { 
-          const ready = sheet.previousYears.every(y => {
-            const d = sheet.yearData[y.key];
-            return d && Array.isArray(d.names);
-          });
-          if (ready) break;
-          await new Promise(res => setTimeout(res, 100));
-          tries++;
-        }
-        const years = sheet.previousYears.map(y => y.key);
-        const yearData = sheet.yearData;
-        const trophyMap = { 0: TROPHIES[0], 1: TROPHIES[1], 2: TROPHIES[2], 3: TROPHIES[3] };
-        const personTrophies = { Shep: [], Hicks: [], Jack: [], Cryan: [] };
-        for (const year of years) {
-          const standings = (yearData[year] && Array.isArray(yearData[year].names)) ? yearData[year].names : [];
-          standings.forEach((row, idx) => {
-            const name = row[0];
-            if (personTrophies[name] && trophyMap[idx]) {
-              personTrophies[name].push(trophyMap[idx]);
-            }
-          });
-        }
-        this.leaderboard.forEach(person => {
-          person.trophies = personTrophies[person.name];
+  mounted() {
+    this.waitForSheetDataAndAssignTrophies();
+  },
+  methods: {
+    async waitForSheetDataAndAssignTrophies() {
+      let sheet = null;
+      while (!sheet) {
+        await this.$nextTick();
+        sheet = this.$children.find(c => c.$options.name === "sheetRequest");
+      }
+      let tries = 0;
+      const allYears = sheet.years.map(y => y.key); 
+      while (tries < 50) { 
+        const ready = allYears.every(y => {
+          const d = sheet.yearData[y];
+          return d && Array.isArray(d.names);
+        });
+        if (ready) break;
+        await new Promise(res => setTimeout(res, 100));
+        tries++;
+      }
+      const yearData = sheet.yearData;
+      const trophyMap = { 0: TROPHIES[0], 1: TROPHIES[1], 2: TROPHIES[2], 3: TROPHIES[3] };
+      const personTrophies = { Shep: [], Hicks: [], Jack: [], Cryan: [] };
+      for (const year of allYears) {
+        const standings = (yearData[year] && Array.isArray(yearData[year].names)) ? yearData[year].names : [];
+        standings.forEach((row, idx) => {
+          const name = row[0];
+          if (personTrophies[name] && trophyMap[idx]) {
+            personTrophies[name].push(trophyMap[idx]);
+          }
         });
       }
+      this.leaderboard.forEach(person => {
+        person.trophies = personTrophies[person.name];
+      });
     }
+  }
 };
 </script>
 
