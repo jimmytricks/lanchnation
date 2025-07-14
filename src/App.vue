@@ -57,7 +57,7 @@ export default {
     const trophyMap = { 0: TROPHIES[0], 1: TROPHIES[1], 2: TROPHIES[2], 3: TROPHIES[3] };
     const personTrophies = { Shep: [], Hicks: [], Jack: [], Cryan: [] };
     for (const year of years) {
-      const standings = yearData[year]?.names || [];
+      const standings = yearData[year].names || [];
       standings.forEach((row, idx) => {
         const name = row[0];
         if (personTrophies[name] && trophyMap[idx]) {
