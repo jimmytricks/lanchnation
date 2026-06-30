@@ -61,7 +61,8 @@ export default {
       spreadsheet: process.env.VUE_APP_SPREADSHEETID,
       apiKey: process.env.VUE_APP_GOOGLE,
       years: [
-        { key: "current", label: "Current Year 2023/24", selection: "/values/currentapisheet!A1:B10?" },
+        { key: "current", label: "Current Year 2026/27", selection: "/values/currentapisheet!A1:B10?" },
+        { key: "2025", label: "2025/26", selection: "/values/2025apisheet!A1:B10?" },
         { key: "2024", label: "2024/25", selection: "/values/2024apisheet!A1:B10?" },
         { key: "2023", label: "2023/24", selection: "/values/2023apisheet!A1:B10?" },
         { key: "2022", label: "2022/23", selection: "/values/2022apisheet!A1:B10?" },
